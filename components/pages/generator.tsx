@@ -31,12 +31,7 @@ export function Generator() {
     symbols: true,
   })
   const [history, setHistory] = useState<HistoryEntry[]>(() => {
-    const pw = generatePassword(20, {
-      uppercase: true,
-      lowercase: true,
-      numbers: true,
-      symbols: true,
-    })
+    const pw = generatePassword(20, { uppercase: true, lowercase: true, numbers: true, symbols: true })
     return pw ? [{ id: 0, password: pw }] : []
   })
   const [index, setIndex] = useState(0)
@@ -48,9 +43,27 @@ export function Generator() {
   const idRef = useRef(1)
   const isEditingRef = useRef(false)
 
+  useEffect(() => { indexRef.current = index }, [index])
+
+  // Load persisted history after mount (deferred to avoid SSR mismatch).
   useEffect(() => {
-    indexRef.current = index
-  }, [index])
+    try {
+      const saved = localStorage.getItem('cg-history')
+      if (saved) {
+        const parsed: HistoryEntry[] = JSON.parse(saved)
+        if (parsed.length > 0) {
+          idRef.current = Math.max(...parsed.map((e) => e.id)) + 1
+          setHistory(parsed)
+          setIndex(parsed.length - 1)
+        }
+      }
+    } catch { }
+  }, [])
+
+  // Persist history to localStorage on every change.
+  useEffect(() => {
+    try { localStorage.setItem('cg-history', JSON.stringify(history)) } catch { }
+  }, [history])
 
   const activeCount = useMemo(
     () => Object.values(options).filter(Boolean).length,
@@ -135,6 +148,15 @@ export function Generator() {
   }
 
   const commit = useCallback(() => generate('commit'), [generate])
+
+  const clearHistory = useCallback(() => {
+    localStorage.removeItem('cg-history')
+    const pw = generatePassword(length, options)
+    idRef.current = 1
+    setHistory(pw ? [{ id: 0, password: pw }] : [])
+    setIndex(0)
+    setHistoryOpen(false)
+  }, [length, options])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -240,6 +262,7 @@ export function Generator() {
         history={history}
         currentId={currentId}
         onSelectAction={selectEntry}
+        onClearAction={clearHistory}
       />
     </div>
   )

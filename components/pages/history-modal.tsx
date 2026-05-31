@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import { Check, Copy, History, X } from 'lucide-react'
+import { Check, Copy, History, Trash2, X } from 'lucide-react'
 
 export type HistoryEntry = {
   id: number
@@ -14,6 +14,7 @@ type Props = {
   history: HistoryEntry[]
   currentId: number | null
   onSelectAction: (id: number) => void
+  onClearAction: () => void
 }
 
 export function HistoryModal({
@@ -22,6 +23,7 @@ export function HistoryModal({
   history,
   currentId,
   onSelectAction,
+  onClearAction,
 }: Props) {
   const [copiedId, setCopiedId] = useState<number | null>(null)
 
@@ -83,14 +85,27 @@ export function HistoryModal({
               {history.length}
             </span>
           </div>
-          <button
-            type="button"
-            onClick={onCloseAction}
-            aria-label="Close"
-            className="flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground"
-          >
-            <X size={18} />
-          </button>
+          <div className="flex items-center gap-1">
+            {history.length > 0 && (
+              <button
+                type="button"
+                onClick={onClearAction}
+                aria-label="Clear history"
+                title="Clear history"
+                className="flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-red-500/10 hover:text-red-400"
+              >
+                <Trash2 size={16} />
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={onCloseAction}
+              aria-label="Close"
+              className="flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground"
+            >
+              <X size={18} />
+            </button>
+          </div>
         </div>
 
         {/* List */}
