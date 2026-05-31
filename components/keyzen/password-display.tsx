@@ -13,6 +13,7 @@ import { useState, useEffect } from 'react'
 type Props = {
   password: string
   copied: boolean
+  genKey: number
   onCopyAction: () => void
   onRegenerateAction: () => void
   onPrevAction: () => void
@@ -28,6 +29,7 @@ type Props = {
 export function PasswordDisplay({
   password,
   copied,
+  genKey,
   onCopyAction,
   onRegenerateAction,
   onPrevAction,
@@ -41,6 +43,7 @@ export function PasswordDisplay({
 }: Props) {
   const [mounted, setMounted] = useState(false)
   useEffect(() => { setMounted(true) }, [])
+
   return (
     <div className="w-full">
       {/* Toolbar */}
@@ -104,13 +107,11 @@ export function PasswordDisplay({
             <span className="relative flex size-5 items-center justify-center">
               <Copy
                 size={18}
-                className={`absolute transition-all duration-200 ${copied ? 'scale-50 opacity-0' : 'scale-100 opacity-100'
-                  }`}
+                className={`absolute transition-all duration-200 ${copied ? 'scale-50 opacity-0' : 'scale-100 opacity-100'}`}
               />
               <Check
                 size={18}
-                className={`absolute text-accent transition-all duration-200 ${copied ? 'scale-100 opacity-100' : 'scale-50 opacity-0'
-                  }`}
+                className={`absolute text-accent transition-all duration-200 ${copied ? 'scale-100 opacity-100' : 'scale-50 opacity-0'}`}
                 strokeWidth={3}
               />
             </span>
@@ -121,10 +122,8 @@ export function PasswordDisplay({
         </div>
       </div>
 
-      {/* Password textarea — border-bottom only, animated focus line */}
-      <div className="group/pw relative animate-fade-up">
+      <div key={genKey} className="group/pw relative">
         <textarea
-          key={!password ? 'empty' : undefined}
           value={password}
           onChange={(e) => onPasswordChangeAction(e.target.value)}
           rows={2}
@@ -133,7 +132,7 @@ export function PasswordDisplay({
           autoCorrect="off"
           autoCapitalize="off"
           placeholder={mounted ? 'Type your password...' : 'Generating...'}
-          className="w-full animate-fade-up resize-none overflow-hidden bg-transparent pt-1 font-mono text-4xl md:text-5xl lg:text-6xl font-medium leading-[1.1] tracking-tight text-foreground placeholder:text-muted-foreground/40 outline-none"
+          className="w-full resize-none overflow-hidden bg-transparent pt-1 font-mono text-4xl md:text-5xl lg:text-6xl font-medium leading-[1.1] tracking-tight text-foreground placeholder:text-muted-foreground/40 outline-none"
           onInput={(e) => {
             const el = e.currentTarget
             el.style.height = 'auto'
