@@ -30,15 +30,22 @@ export function Generator() {
     numbers: true,
     symbols: true,
   })
-  const [history, setHistory] = useState<HistoryEntry[]>([])
+  const [history, setHistory] = useState<HistoryEntry[]>(() => {
+    const pw = generatePassword(20, {
+      uppercase: true,
+      lowercase: true,
+      numbers: true,
+      symbols: true,
+    })
+    return pw ? [{ id: 0, password: pw }] : []
+  })
   const [index, setIndex] = useState(0)
   const [copied, setCopied] = useState(false)
   const [historyOpen, setHistoryOpen] = useState(false)
+  const [genKey, setGenKey] = useState(0)
 
   const indexRef = useRef(0)
-  const idRef = useRef(0)
-  // Tracks whether the user is manually editing — prevents auto-generate
-  // from overwriting their changes.
+  const idRef = useRef(1)
   const isEditingRef = useRef(false)
 
   useEffect(() => {
@@ -53,13 +60,6 @@ export function Generator() {
   const password = history[index]?.password ?? ''
   const currentId = history[index]?.id ?? null
 
-  /**
-   * Generate a password.
-   * - "auto": live tuning — replaces the current entry when it's the newest.
-   *   Skipped when the user is actively editing.
-   * - "commit": explicit action — always appends a new entry and clears the
-   *   editing flag.
-   */
   const generate = useCallback(
     (mode: 'auto' | 'commit') => {
       if (mode === 'auto' && isEditingRef.current) return
@@ -67,9 +67,9 @@ export function Generator() {
       const pw = generatePassword(length, options)
       if (!pw) return
 
-      if (mode === 'commit') {
-        isEditingRef.current = false
-      }
+      if (mode === 'commit') isEditingRef.current = false
+
+      setGenKey((k) => k + 1)
 
       setHistory((prev) => {
         const atLatest =
@@ -85,12 +85,10 @@ export function Generator() {
     [length, options],
   )
 
-  // Live regeneration when length or character options change.
   useEffect(() => {
     generate('auto')
   }, [generate])
 
-  // Always jump to the newest entry after a commit grows the list.
   useEffect(() => {
     setIndex(history.length > 0 ? history.length - 1 : 0)
   }, [history.length])
@@ -111,9 +109,7 @@ export function Generator() {
       await navigator.clipboard.writeText(password)
       setCopied(true)
       window.setTimeout(() => setCopied(false), 1600)
-    } catch {
-      // Clipboard not available — silently ignore.
-    }
+    } catch { }
   }, [password])
 
   const goPrev = useCallback(() => {
@@ -133,16 +129,13 @@ export function Generator() {
   )
 
   const toggleOption = (key: keyof CharOptions, value: boolean) => {
-    // Prevent disabling the last remaining option.
     if (!value && activeCount === 1) return
-    // Changing options means a fresh generate — clear the editing lock.
     isEditingRef.current = false
     setOptions((prev) => ({ ...prev, [key]: value }))
   }
 
   const commit = useCallback(() => generate('commit'), [generate])
 
-  // Keyboard shortcuts: Space = new password, Cmd/Ctrl+C = copy.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (historyOpen) return
@@ -152,34 +145,27 @@ export function Generator() {
         target.tagName === 'TEXTAREA' ||
         target.isContentEditable
       if (isTyping) return
-
       if (e.code === 'Space') {
         e.preventDefault()
         commit()
       } else if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'c') {
-        if (!window.getSelection()?.toString()) {
-          handleCopy()
-        }
+        if (!window.getSelection()?.toString()) handleCopy()
       }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [commit, handleCopy, historyOpen])
 
-  const strength = useMemo(
-    () => getStrength(length, options),
-    [length, options],
-  )
-  const progress =
-    ((length - MIN_LENGTH) / (MAX_LENGTH - MIN_LENGTH)) * 100
+  const strength = useMemo(() => getStrength(length, options), [length, options])
+  const progress = ((length - MIN_LENGTH) / (MAX_LENGTH - MIN_LENGTH)) * 100
 
   return (
     <div className="flex flex-col gap-14 sm:gap-16 lg:gap-20">
-      {/* Password hero */}
       <section className="flex flex-col gap-8">
         <PasswordDisplay
           password={password}
           copied={copied}
+          genKey={genKey}
           onCopyAction={handleCopy}
           onRegenerateAction={commit}
           onPrevAction={goPrev}
@@ -194,9 +180,7 @@ export function Generator() {
         <StrengthIndicator strength={strength} />
       </section>
 
-      {/* Controls */}
       <section className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16">
-        {/* Length */}
         <div className="flex flex-col gap-6">
           <div className="flex items-end justify-between">
             <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
@@ -222,7 +206,6 @@ export function Generator() {
           </div>
         </div>
 
-        {/* Character options */}
         <div className="flex flex-col gap-3">
           <span className="mb-1 text-xs uppercase tracking-[0.25em] text-muted-foreground">
             Characters
@@ -240,7 +223,6 @@ export function Generator() {
         </div>
       </section>
 
-      {/* CTA */}
       <button
         type="button"
         onClick={commit}
