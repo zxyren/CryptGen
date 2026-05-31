@@ -65,7 +65,7 @@ export function PasswordDisplay({
             onClick={onPrevAction}
             disabled={!canPrev}
             aria-label="Previous password"
-            className="flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-muted-foreground"
+            className="flex p-2 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-muted-foreground"
           >
             <ChevronLeft size={18} />
           </button>
@@ -74,7 +74,7 @@ export function PasswordDisplay({
             onClick={onNextAction}
             disabled={!canNext}
             aria-label="Next password"
-            className="flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-muted-foreground"
+            className="flex p-2 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-muted-foreground"
           >
             <ChevronRight size={18} />
           </button>
@@ -85,7 +85,7 @@ export function PasswordDisplay({
             type="button"
             onClick={onOpenHistoryAction}
             aria-label="Open history"
-            className="flex h-9 items-center gap-2 rounded-md px-2.5 text-sm text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground"
+            className="flex h-9 items-center gap-2 rounded-md px-2.5 text-sm text-muted-foreground outline-none transition-colors hover:bg-white/5 hover:text-foreground"
           >
             <Clock size={18} />
             <span className="hidden md:inline">History</span>

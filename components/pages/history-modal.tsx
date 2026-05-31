@@ -27,7 +27,6 @@ export function HistoryModal({
 }: Props) {
   const [copiedId, setCopiedId] = useState<number | null>(null)
 
-  // Lock body scroll and close on Escape while open.
   useEffect(() => {
     if (!open) return
     const onKey = (e: KeyboardEvent) => {
@@ -81,7 +80,7 @@ export function HistoryModal({
             <h2 className="text-base font-bold tracking-tight text-foreground sm:text-lg">
               History
             </h2>
-            <span className="font-mono text-xs tabular-nums text-muted-foreground">
+            <span className="font-mono tabular-nums text-muted-foreground">
               {history.length}
             </span>
           </div>
@@ -92,16 +91,16 @@ export function HistoryModal({
                 onClick={onClearAction}
                 aria-label="Clear history"
                 title="Clear history"
-                className="flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-red-500/10 hover:text-red-400"
+                className="flex cursor-pointer p-2 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-red-500/10 hover:text-red-400"
               >
-                <Trash2 size={16} />
+                <Trash2 size={18} />
               </button>
             )}
             <button
               type="button"
               onClick={onCloseAction}
               aria-label="Close"
-              className="flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground"
+              className="flex cursor-pointer p-2 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground"
             >
               <X size={18} />
             </button>
@@ -133,7 +132,7 @@ export function HistoryModal({
                       className="flex min-w-0 flex-1 items-center gap-3 text-left"
                     >
                       <span
-                        className={`size-1.5 shrink-0 rounded-full ${isCurrent ? 'bg-accent' : 'bg-transparent'
+                        className={`h-2 w-2 shrink-0 rounded-full ${isCurrent ? 'bg-accent' : 'bg-transparent'
                           }`}
                         aria-hidden
                       />
@@ -142,7 +141,7 @@ export function HistoryModal({
                       </span>
                     </button>
                     {isCurrent && (
-                      <span className="hidden shrink-0 text-[10px] uppercase tracking-[0.2em] text-accent sm:inline">
+                      <span className="hidden shrink-0 text-sm font-medium text-accent sm:inline">
                         Current
                       </span>
                     )}
@@ -150,7 +149,7 @@ export function HistoryModal({
                       type="button"
                       onClick={() => handleCopy(entry)}
                       aria-label="Copy password"
-                      className="flex size-8 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground"
+                      className="flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground"
                     >
                       <span className="relative flex size-4 items-center justify-center">
                         <Copy
