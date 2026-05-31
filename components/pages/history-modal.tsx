@@ -77,17 +77,17 @@ export function HistoryModal({ open, onCloseAction, history, currentId, onSelect
               const isCurrent = entry.id === currentId
               const isCopied = entry.id === copiedId
               return (
-                <li key={entry.id} className="flex items-center gap-2 px-4 py-3 transition-colors hover:bg-white/5 sm:px-6">
+                <li key={entry.id} className={`flex items-center gap-2 px-4 py-3 transition-colors sm:px-6 ${isCurrent ? 'bg-accent/10' : 'hover:bg-white/5'}`}>
                   <button
                     type="button"
                     onClick={() => { onSelectAction(entry.id); onCloseAction() }}
                     className="flex min-w-0 flex-1 items-center gap-2.5 text-left outline-none"
                   >
-                    <span className={`size-1.5 shrink-0 rounded-full transition-colors ${isCurrent ? 'bg-accent' : 'bg-transparent'}`} />
-                    <span className="truncate font-mono text-sm text-foreground">{entry.password}</span>
+                    <span className={`truncate font-mono text-sm ${isCurrent ? 'text-accent' : 'text-foreground'}`}>
+                      {entry.password}
+                    </span>
                   </button>
-                  {isCurrent && <span className="hidden shrink-0 text-xs font-medium text-accent sm:inline">Current</span>}
-                  <Button variant="ghost" size="icon-lg" onClick={() => handleCopy(entry)} title="Copy">
+                  <Button variant="ghost" size="icon-sm" onClick={() => handleCopy(entry)} title="Copy">
                     <span className="relative flex size-4 items-center justify-center">
                       <Copy size={14} className={`absolute transition-all duration-200 ${isCopied ? 'scale-50 opacity-0' : 'scale-100 opacity-100'}`} />
                       <Check size={14} className={`absolute text-accent transition-all duration-200 ${isCopied ? 'scale-100 opacity-100' : 'scale-50 opacity-0'}`} strokeWidth={3} />
