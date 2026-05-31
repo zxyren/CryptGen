@@ -216,7 +216,7 @@ export function Generator() {
                 key={key}
                 label={label}
                 checked={options[key]}
-                onChange={(v) => toggleOption(key, v)}
+                onChangeAction={(v) => toggleOption(key, v)}
               />
             ))}
           </div>

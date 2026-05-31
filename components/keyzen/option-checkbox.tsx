@@ -5,11 +5,11 @@ import { Check } from 'lucide-react'
 type Props = {
   label: string
   checked: boolean
-  onChange: (checked: boolean) => void
+  onChangeAction: (checked: boolean) => void
   disabled?: boolean
 }
 
-export function OptionCheckbox({ label, checked, onChange, disabled }: Props) {
+export function OptionCheckbox({ label, checked, onChangeAction, disabled }: Props) {
   return (
     <button
       type="button"
@@ -17,7 +17,7 @@ export function OptionCheckbox({ label, checked, onChange, disabled }: Props) {
       aria-checked={checked}
       aria-label={label}
       disabled={disabled}
-      onClick={() => onChange(!checked)}
+      onClick={() => onChangeAction(!checked)}
       className="group flex items-center gap-3 py-2 text-left transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
     >
       <span
