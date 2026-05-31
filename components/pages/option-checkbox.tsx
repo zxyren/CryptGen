@@ -18,7 +18,7 @@ export function OptionCheckbox({ label, checked, onChangeAction, disabled }: Pro
       aria-label={label}
       disabled={disabled}
       onClick={() => onChangeAction(!checked)}
-      className="group flex items-center gap-3 py-2 text-left transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
+      className="group flex items-center gap-3 py-2 text-left cursor-pointer transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
     >
       <span
         className={`flex size-6 shrink-0 items-center justify-center rounded-sm border transition-all duration-200 ${checked

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import { Check, Copy, History, Trash2, X } from 'lucide-react'
+import { Button } from '../ui/button'
 
 export type HistoryEntry = {
   id: number
@@ -86,24 +87,13 @@ export function HistoryModal({
           </div>
           <div className="flex items-center gap-1">
             {history.length > 0 && (
-              <button
-                type="button"
-                onClick={onClearAction}
-                aria-label="Clear history"
-                title="Clear history"
-                className="flex cursor-pointer p-2 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-red-500/10 hover:text-red-400"
-              >
+              <Button variant="danger" size="icon-lg" onClick={onClearAction} title="Clear history">
                 <Trash2 size={18} />
-              </button>
+              </Button>
             )}
-            <button
-              type="button"
-              onClick={onCloseAction}
-              aria-label="Close"
-              className="flex cursor-pointer p-2 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground"
-            >
+            <Button variant="ghost" size="icon-lg" onClick={onCloseAction} title="Close history">
               <X size={18} />
-            </button>
+            </Button>
           </div>
         </div>
 
@@ -145,24 +135,21 @@ export function HistoryModal({
                         Current
                       </span>
                     )}
-                    <button
-                      type="button"
-                      onClick={() => handleCopy(entry)}
-                      aria-label="Copy password"
-                      className="flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground"
-                    >
-                      <span className="relative flex size-4 items-center justify-center">
+                    <Button variant="ghost" size="icon-lg" onClick={() => handleCopy(entry)} title="Copy password">
+                      <span className="relative flex items-center justify-center">
                         <Copy
-                          className={`absolute size-4 transition-all duration-200 ${isCopied ? 'scale-50 opacity-0' : 'scale-100 opacity-100'
+                          size={18}
+                          className={`absolute transition-all duration-200 ${isCopied ? 'scale-50 opacity-0' : 'scale-100 opacity-100'
                             }`}
                         />
                         <Check
-                          className={`absolute size-4 text-accent transition-all duration-200 ${isCopied ? 'scale-100 opacity-100' : 'scale-50 opacity-0'
+                          size={18}
+                          className={`absolute text-accent transition-all duration-200 ${isCopied ? 'scale-100 opacity-100' : 'scale-50 opacity-0'
                             }`}
                           strokeWidth={3}
                         />
                       </span>
-                    </button>
+                    </Button>
                   </div>
                 </li>
               )

@@ -9,6 +9,7 @@ import {
   RotateCw,
 } from 'lucide-react'
 import { useState, useEffect } from 'react'
+import { Button } from '../ui/button'
 
 type Props = {
   password: string
@@ -60,65 +61,29 @@ export function PasswordDisplay({
         </div>
 
         <div className="flex items-center gap-1">
-          <button
-            type="button"
-            onClick={onPrevAction}
-            disabled={!canPrev}
-            aria-label="Previous password"
-            className="flex p-2 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-muted-foreground"
-          >
+          <Button variant="ghost" size="icon-lg" onClick={onPrevAction} disabled={!canPrev}>
             <ChevronLeft size={18} />
-          </button>
-          <button
-            type="button"
-            onClick={onNextAction}
-            disabled={!canNext}
-            aria-label="Next password"
-            className="flex p-2 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-muted-foreground"
-          >
+          </Button>
+          <Button variant="ghost" size="icon-lg" onClick={onNextAction} disabled={!canNext}>
             <ChevronRight size={18} />
-          </button>
+          </Button>
 
           <span className="mx-1 h-5 w-px bg-border" aria-hidden />
 
-          <button
-            type="button"
-            onClick={onOpenHistoryAction}
-            aria-label="Open history"
-            className="flex h-9 items-center gap-2 rounded-md px-2.5 text-sm text-muted-foreground outline-none transition-colors hover:bg-white/5 hover:text-foreground"
-          >
+          <Button variant="ghost" size="lg" onClick={onOpenHistoryAction}>
             <Clock size={18} />
             <span className="hidden md:inline">History</span>
-          </button>
-          <button
-            type="button"
-            onClick={onRegenerateAction}
-            aria-label="Regenerate password"
-            className="flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground"
-          >
+          </Button>
+          <Button variant="ghost" size="icon-lg" onClick={onRegenerateAction}>
             <RotateCw size={18} />
-          </button>
-          <button
-            type="button"
-            onClick={onCopyAction}
-            aria-label="Copy password"
-            className="flex h-9 items-center gap-2 rounded-md px-2.5 text-sm text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground"
-          >
-            <span className="relative flex size-5 items-center justify-center">
-              <Copy
-                size={18}
-                className={`absolute transition-all duration-200 ${copied ? 'scale-50 opacity-0' : 'scale-100 opacity-100'}`}
-              />
-              <Check
-                size={18}
-                className={`absolute text-accent transition-all duration-200 ${copied ? 'scale-100 opacity-100' : 'scale-50 opacity-0'}`}
-                strokeWidth={3}
-              />
+          </Button>
+          <Button variant="ghost" size="lg" onClick={onCopyAction} aria-label="Copy password">
+            <span className="relative flex size-4 items-center justify-center">
+              <Copy size={16} className={`absolute transition-all duration-200 ${copied ? 'scale-50 opacity-0' : 'scale-100 opacity-100'}`} />
+              <Check size={16} className={`absolute text-accent transition-all duration-200 ${copied ? 'scale-100 opacity-100' : 'scale-50 opacity-0'}`} strokeWidth={3} />
             </span>
-            <span className="hidden sm:inline">
-              {copied ? 'Copied' : 'Copy'}
-            </span>
-          </button>
+            <span className="hidden sm:inline">{copied ? 'Copied' : 'Copy'}</span>
+          </Button>
         </div>
       </div>
 
