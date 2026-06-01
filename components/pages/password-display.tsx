@@ -96,12 +96,12 @@ export function PasswordDisplay({
         <textarea
           value={password}
           onChange={(e) => onPasswordChangeAction(e.target.value)}
-          rows={2}
+          rows={3}
           spellCheck={false}
           autoComplete="off"
           autoCorrect="off"
           autoCapitalize="off"
-          placeholder={mounted ? 'Type your password...' : 'Generating...'}
+          placeholder={mounted ? 'Generate password...' : 'Generating...'}
           className="w-full resize-none overflow-hidden bg-transparent pt-1 font-mono text-2xl md:text-3xl lg:text-5xl font-medium leading-[1.1] tracking-tight text-foreground placeholder:text-muted-foreground/40 outline-none"
           onInput={(e) => {
             const el = e.currentTarget
