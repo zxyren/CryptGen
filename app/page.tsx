@@ -16,7 +16,7 @@ export default function Page() {
             Generated locally.
             <br className="sm:hidden" />{" "}
             <span className="text-foreground">Never stored. Never sent.</span>
-          </p>
+          </p>w
         </section>
 
         {/* Generator */}

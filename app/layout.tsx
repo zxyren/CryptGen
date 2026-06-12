@@ -21,26 +21,26 @@ const miranoExtended = localFont({
   display: "swap",
 });
 
-const BASE_URL = "https://cryptgen.pages.dev";
+const BASE_URL = "https://genpassd.web.app";
 
 export const metadata: Metadata = {
-  title: "CryptGen — Create Strong Passwords",
+  title: "GenPassd — Create Strong Passwords",
   description:
     "A typography-first password generator. Generated locally. Never stored. Never sent.",
   metadataBase: new URL(BASE_URL),
   generator: "v0.app",
   openGraph: {
-    title: "CryptGen — Create Strong Passwords",
+    title: "GenPassd — Create Strong Passwords",
     description:
       "A typography-first password generator. Generated locally. Never stored. Never sent.",
     url: BASE_URL,
-    siteName: "CryptGen",
+    siteName: "GenPassd",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "CryptGen — Create Strong Passwords",
+        alt: "GenPassd — Create Strong Passwords",
       },
     ],
     locale: "en_US",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "CryptGen — Create Strong Passwords",
+    title: "GenPassd — Create Strong Passwords",
     description:
       "A typography-first password generator. Generated locally. Never stored. Never sent.",
     images: ["/og-image.png"],
