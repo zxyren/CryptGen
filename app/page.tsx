@@ -5,7 +5,7 @@ export default function Page() {
     <div className="relative min-h-screen bg-background">
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-5xl flex-col px-5 py-6 sm:px-8 sm:py-10 lg:px-10">
         <section className="flex flex-col items-start gap-6">
-          <h1 className="text-5xl md:text-8xl xl:text-9xl font-extrabold uppercase tracking-tighter text-foreground text-balance">
+          <h1 className="text-5xl md:text-7xl xl:text-8xl font-black tracking-tighter text-foreground text-balance">
             Generate
             <br />
             Random

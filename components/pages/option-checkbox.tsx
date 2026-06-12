@@ -23,13 +23,13 @@ export function OptionCheckbox({ label, checked, onChangeAction, disabled }: Pro
     >
       <span
         className={`flex size-6 shrink-0 items-center justify-center rounded-sm border transition-all duration-200 ${checked
-          ? 'border-transparent bg-accent'
+          ? 'border-transparent bg-foreground'
           : 'border-white/20 bg-transparent group-hover:border-white/40'
           }`}
       >
         <IconCheck
           size={14}
-          className={`text-white transition-all duration-300 ${checked ? 'scale-100' : 'scale-0'
+          className={`text-surface transition-all duration-300 ${checked ? 'scale-100' : 'scale-0'
             }`}
           strokeWidth={3}
         />

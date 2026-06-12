@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import { Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
@@ -12,6 +13,11 @@ const bricolage = Bricolage_Grotesque({
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains-mono",
+  display: "swap",
+});
+const miranoExtended = localFont({
+  src: "../public/fonts/mirano-extended.woff2",
+  variable: "--font-heading",
   display: "swap",
 });
 
@@ -62,7 +68,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark bg-background ${bricolage.variable} ${jetbrainsMono.variable}`}
+      className={`dark bg-background ${bricolage.variable} ${jetbrainsMono.variable} ${miranoExtended.variable}`}
     >
       <body className="font-sans antialiased">
         <TooltipProvider>

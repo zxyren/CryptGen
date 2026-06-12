@@ -251,9 +251,9 @@ export function Generator() {
       <button
         type="button"
         onClick={commit}
-        className="group flex w-full cursor-pointer items-center justify-between gap-4 rounded-2xl bg-foreground outline-none ring-0 px-6 py-6 text-left text-background transition-all duration-300 hover:bg-accent hover:text-white sm:px-10 sm:py-8"
+        className="group flex w-full cursor-pointer items-center justify-between gap-4 rounded-2xl bg-background outline-none ring-0 px-6 py-6 text-foreground border border-foreground transition-all duration-300 hover:bg-foreground hover:text-background sm:px-10 sm:py-8"
       >
-        <span className="text-xl font-extrabold tracking-tight sm:text-3xl md:text-4xl">
+        <span className="text-xl font-extrabold tracking-tight sm:text-2xl md:text-3xl">
           GENERATE PASSWORD
         </span>
         <IconArrowRight className="shrink-0 size-6 transition-transform duration-300 group-hover:translate-x-2 sm:size-10" />
