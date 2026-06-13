@@ -1,6 +1,6 @@
 'use client'
 
-import { IconCheck, IconChevronLeft, IconChevronRight, IconClock, IconCopy, IconRotate } from '@tabler/icons-react';
+import { IconCheck, IconChevronLeft, IconChevronRight, IconClock, IconCopy, IconRotateClockwise } from '@tabler/icons-react';
 import { useState, useEffect } from 'react'
 import { Button } from '../ui/button'
 
@@ -68,7 +68,10 @@ export function PasswordDisplay({
             <span className="hidden md:inline group-hover:text-accent">History</span>
           </Button>
           <Button variant="ghost" size="icon-lg" onClick={onRegenerateAction} className="group" aria-label="Regenerate">
-            <IconRotate size={18} className="transition-all rotate-180 duration-300 group-active:rotate-90" />
+            <IconRotateClockwise
+              size={18}
+              className="transition-transform duration-300 -rotate-180 group-active:-rotate-90"
+            />
           </Button>
           <Button variant="ghost" size="lg" onClick={onCopyAction} aria-label="Copy password">
             <span className="relative flex size-4 items-center justify-center">
